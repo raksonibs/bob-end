@@ -8,7 +8,7 @@ gem 'spring', :group => :development
 
 gem "pg", "~> 0.17.1", group: :production
 
-gem 'active_model_serializers', '~> 0.8.1'
+# gem 'active_model_serializers', '~> 0.8.1'
 
 group :test do
   gem 'shoulda', '~> 3.5.0'
@@ -18,3 +18,4 @@ gem 'pry'
 gem 'rails_12factor', '~> 0.0.2'
 gem 'rack-cors', '~> 0.2.9', :require => 'rack/cors'
 gem 'counter_culture', '~> 0.1.29'
+gem "active_model_serializers", github: "rails-api/active_model_serializers", tag: "v0.10.0.rc5"
