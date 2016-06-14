@@ -52,6 +52,8 @@ class Api::ArticlesController < ApplicationController
   end
 
   def article_params
-    params.require(:article).permit(:description, :friend_id, :notes, :state)
+    # params.require(:article).permit(:description, :friend_id, :notes, :state)
+    res = ActiveModelSerializers::Deserialization.jsonapi_parse(params)  
+    res
   end
 end
