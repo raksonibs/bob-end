@@ -4,9 +4,13 @@ class Api::ArticlesController < ApplicationController
   # GET /articles
   # GET /articles.json
   def index
-    @articles = Article.all
-
-    render json: @articles
+    @articles = Article.limit(params[:limit])
+    if params[:section] == "U.S."
+      @articles = @articles.where(section: params[:section])
+    else
+      @articles = @articles.where.not(section: 'U.S.')
+    end
+    render json: @articles, meta: { total: Article.count }
   end
 
   # GET /articles/1
