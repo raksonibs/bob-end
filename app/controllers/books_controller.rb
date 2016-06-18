@@ -4,9 +4,9 @@ class BooksController < ApplicationController
   # GET /books
   # GET /books.json
   def index
-    @books = Book.all
+    @books = Book.limit(params[:limit])
 
-    render json: @books
+    render json: @books, meta: {total: Book.count}
   end
 
   # GET /books/1
@@ -60,7 +60,7 @@ class BooksController < ApplicationController
 
     def book_params
       res = ActiveModelSerializers::Deserialization.jsonapi_parse(params)
-      # res[:publisher_type] = res[:publisher_type].singularize.capitalize
+      res[:publisher_type] = res[:publisher_type].try(:singularize).try(:capitalize)
       res
     end
 end
