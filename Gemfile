@@ -1,21 +1,22 @@
 source 'https://rubygems.org'
 
-gem 'rails', '4.1.5'
+gem 'rails', '>= 5.0.0.rc1', '< 5.1'
 
-gem 'rails-api'
+# gem 'rails-api'
 
 gem 'spring', :group => :development
 
-gem "pg", "~> 0.17.1", group: :production
+gem "pg"
 
 # gem 'active_model_serializers', '~> 0.8.1'
 
 group :test do
-  gem 'shoulda', '~> 3.5.0'
+  gem 'shoulda'
 end
 
 gem 'pry'
-gem 'rails_12factor', '~> 0.0.2'
-gem 'rack-cors', '~> 0.2.9', :require => 'rack/cors'
-gem 'counter_culture', '~> 0.1.29'
-gem "active_model_serializers", github: "rails-api/active_model_serializers", tag: "v0.10.0.rc5"
+gem 'rails_12factor'
+gem 'counter_culture'
+gem "active_model_serializers", github: "rails-api/active_model_serializers"
+gem 'rack-cors', :require => 'rack/cors'
+gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
