@@ -51,6 +51,7 @@ GEM
     arel (7.0.0)
     builder (3.2.2)
     byebug (9.0.5)
+    coderay (1.1.1)
     concurrent-ruby (1.0.2)
     erubis (2.7.0)
     ffi (1.9.10)
@@ -77,6 +78,10 @@ GEM
       pkg-config (~> 1.1.7)
     pg (0.18.4)
     pkg-config (1.1.7)
+    pry (0.10.3)
+      coderay (~> 1.1.0)
+      method_source (~> 0.8.1)
+      slop (~> 3.4)
     rack (2.0.0.rc1)
       json
     rack-test (0.6.3)
@@ -111,6 +116,7 @@ GEM
     rb-fsevent (0.9.7)
     rb-inotify (0.9.7)
       ffi (>= 0.5.0)
+    slop (3.6.0)
     spring (1.7.1)
     spring-watcher-listen (2.0.0)
       listen (>= 2.7, < 4.0)
@@ -138,6 +144,7 @@ DEPENDENCIES
   byebug
   listen (~> 3.0.5)
   pg
+  pry
   rails (>= 5.0.0.rc1, < 5.1)
   spring
   spring-watcher-listen (~> 2.0.0)

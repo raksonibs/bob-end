@@ -3,8 +3,8 @@ class LocationsController < ApplicationController
 
   # GET /locations
   def index
-    @locations = Location.all
-
+    @locations = Location.all.includes(:articles)
+    
     render json: @locations
   end
 
