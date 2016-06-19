@@ -25,7 +25,8 @@ class UsersController < ApplicationController
   end
 
   def token
-    user = User.find_by_email(params[:email])
+    user = User.find_by_email(params[:username])
+
     if user && user.authenticate(params[:password])
       render json: {user: user, access_token: Rails.application.secrets.access_token}
     else
