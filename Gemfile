@@ -36,3 +36,4 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem "active_model_serializers", github: "rails-api/active_model_serializers", tag: "v0.10.0.rc5"
 gem 'pry'
+gem 'bcrypt'

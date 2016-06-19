@@ -24,6 +24,15 @@ class UsersController < ApplicationController
     end
   end
 
+  def token
+    user = User.find_by_email(params[:email])
+    if user && user.authenticate(params[:password])
+      render json: {user: user, access_token: Rails.application.secrets.access_token}
+    else
+      render json: { error: 'Application specific message' }, status: :bad_request
+    end 
+  end
+
   # PATCH/PUT /users/1
   def update
     if @user.update(user_params)
