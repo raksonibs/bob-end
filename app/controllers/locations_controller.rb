@@ -3,7 +3,8 @@ class LocationsController < ApplicationController
 
   # GET /locations
   def index
-    @locations = Location.all.includes(:articles)
+    @locations = params[:continent] ? Location.where(continent: params[:continent]) : Location.all 
+    @locations.includes(:articles)
     
     render json: @locations
   end
