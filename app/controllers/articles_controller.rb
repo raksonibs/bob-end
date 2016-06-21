@@ -8,6 +8,7 @@ class ArticlesController < ApplicationController
       Article.all.each do |article|
         @articles << article if article.location.continent == params[:continent]
       end
+      # @articles = Article.joins(:location).where('location.continent = ?', params[:continent])
     else
       @articles = Article.all 
     end 
