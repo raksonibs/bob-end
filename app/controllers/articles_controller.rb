@@ -11,7 +11,11 @@ class ArticlesController < ApplicationController
       # @articles = Article.joins(:location).where('location.continent = ?', params[:continent])
     else
       @articles = Article.all 
-    end 
+    end
+
+    if params[:newArticles]
+      @articles = @articles.where('created_at > ?', DateTime.now() - 1.minute)
+    end
 
     render json: @articles
   end
