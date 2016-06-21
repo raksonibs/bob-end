@@ -3,7 +3,14 @@ class ArticlesController < ApplicationController
 
   # GET /articles
   def index
-    @articles = Article.all
+    @articles = []
+    if params[:continent] 
+      Article.all.each do |article|
+        @articles << article if article.location.continent == params[:continent]
+      end
+    else
+      @articles = Article.all 
+    end 
 
     render json: @articles
   end
