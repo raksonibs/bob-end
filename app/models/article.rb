@@ -5,7 +5,7 @@ class Article < ApplicationRecord
 
   def self.create_seed
     locations = Location.all
-    l1 = locations[Random.new().rand(locations.size)]
+    l1 = locations[Random.new().rand(locations.size).ceil()]
     letters = ('a'..'z').to_a
     randomWord = ""
     3.times {|i| randomWord << "#{letters[Random.new().rand(letters.size)]}" }
