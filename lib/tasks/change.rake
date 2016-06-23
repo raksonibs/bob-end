@@ -20,7 +20,7 @@ namespace :change do
   end
 
   desc 'Create some more locs'
-  task :add_locs => :environment do 
-
+  task :images => :environment do 
+    Article.all.update_all({image_url: 'http://lorempixel.com/400/200/'})
   end
 end

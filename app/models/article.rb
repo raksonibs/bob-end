@@ -9,6 +9,6 @@ class Article < ApplicationRecord
     letters = ('a'..'z').to_a
     randomWord = ""
     3.times {|i| randomWord << "#{letters[Random.new().rand(letters.size)]}" }
-    a1 = Article.create({story: "#{randomWord} went to store", title: randomWord, publishedAt: Date.today() + 1.day, location: l1})
+    a1 = Article.create({image_url: 'http://lorempixel.com/400/200/', story: "#{randomWord} went to store", title: randomWord, publishedAt: Date.today() + 1.day, location: l1})
   end
 end
