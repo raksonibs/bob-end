@@ -14,7 +14,7 @@ class ArticlesController < ApplicationController
     end
 
     if params[:newArticles]
-      @articles = @articles.where('created_at > ?', DateTime.now() - 5.seconds)
+      @articles = @articles.where('created_at > ?', DateTime.now() - 10.seconds)
     end
 
     render json: @articles
