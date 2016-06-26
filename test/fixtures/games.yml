@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  type: 
+  num_players: 
+  name: MyString
+
+two:
+  type: 
+  num_players: 
+  name: MyString

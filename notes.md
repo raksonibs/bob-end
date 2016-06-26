@@ -16,3 +16,4 @@
 - user connects with another player via socket connection, on connection, join game broadcast
 - with rubies can cash out, or can buy at store (more games, or skins on tictactoe (ie: blue x's etc, powermove))
 - matchmaking when looking for match roller
+- matches become played games, matches connects two players

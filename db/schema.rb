@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160623035337) do
+ActiveRecord::Schema.define(version: 20160626160029) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,6 +36,14 @@ ActiveRecord::Schema.define(version: 20160623035337) do
     t.index ["user_id"], name: "index_favourites_on_user_id", using: :btree
   end
 
+  create_table "games", force: :cascade do |t|
+    t.string   "type"
+    t.integer  "num_players"
+    t.string   "name"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
   create_table "locations", force: :cascade do |t|
     t.string   "address"
     t.decimal  "latitude"
@@ -44,6 +52,31 @@ ActiveRecord::Schema.define(version: 20160623035337) do
     t.datetime "updated_at", null: false
     t.string   "country"
     t.string   "continent"
+  end
+
+  create_table "matches", force: :cascade do |t|
+    t.integer  "game_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["game_id"], name: "index_matches_on_game_id", using: :btree
+  end
+
+  create_table "money", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "amount"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_money_on_user_id", using: :btree
+  end
+
+  create_table "played_games", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "game_id"
+    t.string   "outcome"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["game_id"], name: "index_played_games_on_game_id", using: :btree
+    t.index ["user_id"], name: "index_played_games_on_user_id", using: :btree
   end
 
   create_table "users", force: :cascade do |t|
@@ -58,4 +91,5 @@ ActiveRecord::Schema.define(version: 20160623035337) do
   add_foreign_key "articles", "locations"
   add_foreign_key "favourites", "articles"
   add_foreign_key "favourites", "users"
+  add_foreign_key "money", "users"
 end
