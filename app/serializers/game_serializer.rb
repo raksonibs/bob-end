@@ -1,7 +1,5 @@
 class GameSerializer < ActiveModel::Serializer
-  attributes :id, :name, :custom_name
-  
-  def custom_name
-    "test"
-  end
+  attributes :id, :name
+
+  has_many :played_games
 end

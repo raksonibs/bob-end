@@ -3,7 +3,7 @@ class User < ApplicationRecord
   has_many :favourites
   has_many :articles, through: :favourites
   has_many :played_games
-  has_many :match
+  has_many :matches
   has_many :rubies
   # has_many :wagers, as: :wagable
   has_many :wagers
