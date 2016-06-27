@@ -1,5 +1,7 @@
+require 'redis'
+
 class ApplicationController < ActionController::API
-  # def params
-  #   ActiveModelSerializers::Deserialization.jsonapi_parse(params)
-  # end
+  def redis
+    redis = Redis.new
+  end
 end

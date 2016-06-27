@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160626192323) do
+ActiveRecord::Schema.define(version: 20160627035103) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -72,11 +72,13 @@ ActiveRecord::Schema.define(version: 20160626192323) do
   create_table "played_games", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "game_id"
-    t.string   "outcome"
+    t.integer  "outcome"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.decimal  "total_bet"
+    t.integer  "match_id"
     t.index ["game_id"], name: "index_played_games_on_game_id", using: :btree
+    t.index ["match_id"], name: "index_played_games_on_match_id", using: :btree
     t.index ["user_id"], name: "index_played_games_on_user_id", using: :btree
   end
 
@@ -97,9 +99,24 @@ ActiveRecord::Schema.define(version: 20160626192323) do
     t.string   "password_digest"
   end
 
+  create_table "wagers", force: :cascade do |t|
+    t.string   "wagable_type"
+    t.integer  "wagable_id"
+    t.decimal  "amount"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.integer  "user_id"
+    t.integer  "match_id"
+    t.index ["match_id"], name: "index_wagers_on_match_id", using: :btree
+    t.index ["user_id"], name: "index_wagers_on_user_id", using: :btree
+  end
+
   add_foreign_key "articles", "locations"
   add_foreign_key "favourites", "articles"
   add_foreign_key "favourites", "users"
   add_foreign_key "money", "users"
+  add_foreign_key "played_games", "matches"
   add_foreign_key "rubies", "users"
+  add_foreign_key "wagers", "matches"
+  add_foreign_key "wagers", "users"
 end

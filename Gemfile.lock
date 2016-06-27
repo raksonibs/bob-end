@@ -117,6 +117,7 @@ GEM
     rb-fsevent (0.9.7)
     rb-inotify (0.9.7)
       ffi (>= 0.5.0)
+    redis (3.3.0)
     slop (3.6.0)
     spring (1.7.1)
     spring-watcher-listen (2.0.0)
@@ -148,6 +149,7 @@ DEPENDENCIES
   pg
   pry
   rails (>= 5.0.0.rc1, < 5.1)
+  redis
   spring
   spring-watcher-listen (~> 2.0.0)
   tzinfo-data

@@ -3,8 +3,10 @@ class User < ApplicationRecord
   has_many :favourites
   has_many :articles, through: :favourites
   has_many :played_games
-  belongs_to :match
+  has_many :match
   has_many :rubies
+  # has_many :wagers, as: :wagable
+  has_many :wagers
 
   def password=(password)
     self.password_digest = BCrypt::Password.create(password)
