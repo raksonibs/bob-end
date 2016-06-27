@@ -11,4 +11,5 @@ Rails.application.routes.draw do
   resources :matches
   resources :played_games
   resources :games
+  resources :wagers
 end
