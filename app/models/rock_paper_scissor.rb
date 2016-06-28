@@ -1,0 +1,2 @@
+class RockPaperScissor < ApplicationRecord
+end

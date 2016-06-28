@@ -3,7 +3,41 @@ class GamesController < ApplicationController
 
   # GET /games
   def index
-    @games = Game.all
+    @games = {data: [
+              {
+                id: '1', 
+                type: 'games',
+                attributes: {
+                  name: 'Tic Tac Toe', 
+                  num_players: 2
+                }
+              },
+              {
+                id: '2', 
+                type: 'games',
+                attributes: {
+                  name: 'Connect Four', 
+                  num_players: 2
+                }
+              },
+              {
+                id: '3', 
+                type: 'games',
+                attributes: {
+                  name: 'Rock Paper Scissors', 
+                  num_players: 2
+                }
+              },
+              {
+                id: '4', 
+                type: 'games',
+                attributes: {
+                  name: 'Stix', 
+                  num_players: 2
+                }
+              }
+          ]
+      }
 
     render json: @games
   end

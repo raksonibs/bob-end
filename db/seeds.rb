@@ -13,7 +13,4 @@ match1.wagers << wager2
 played_game1 = PlayedGame.find_or_create_by(game: g1, user: u1, outcome: 0, match: match1)
 played_game2 = PlayedGame.find_or_create_by(game: g1, user: u2, outcome: 0, match: match1)
 
-
-
-
-
+g1 = Game.find_or_create_by({num_players: 2, name: 'Rock Paper Scissors'})

@@ -17,3 +17,12 @@
 - with rubies can cash out, or can buy at store (more games, or skins on tictactoe (ie: blue x's etc, powermove))
 - matchmaking when looking for match roller
 - matches become played games, matches connects two players
+
+- four games, tic tac toe, connectfour, rock paper scissors, and sticks
+- each game allows to players, connected via socket, 
+- eeach game actually is a type of with different attritubes
+- you broadcast the moves over the socket
+- each player can wager on themselves in the beginning
+- during the matchmaking, they set a bet on  themselves first
+- a matchmaking process happens (ie: random for now)
+  - we record win and losses, and determine someone with equal win and loss rate

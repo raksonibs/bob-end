@@ -1,0 +1,2 @@
+class Stix < ApplicationRecord
+end

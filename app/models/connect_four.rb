@@ -1,0 +1,2 @@
+class ConnectFour < ApplicationRecord
+end

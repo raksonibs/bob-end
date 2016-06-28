@@ -1,3 +1,2 @@
-class TicTacToe < Game
-  # has_many :played_games
+class TicTacToe < ApplicationRecord
 end
