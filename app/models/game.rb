@@ -3,5 +3,5 @@ class Game < ApplicationRecord
   belongs_to :rock_paper_scissor
   belongs_to :tic_tac_toe
   belongs_to :stix
-  belongs_to :connect_fout
+  belongs_to :connect_four
 end
