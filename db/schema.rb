@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160628135904) do
+ActiveRecord::Schema.define(version: 20160630030137) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,8 +28,11 @@ ActiveRecord::Schema.define(version: 20160628135904) do
   end
 
   create_table "connect_fours", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.integer  "game_type_id"
+    t.integer  "num_players"
+    t.string   "name"
   end
 
   create_table "favourites", force: :cascade do |t|
@@ -41,11 +44,23 @@ ActiveRecord::Schema.define(version: 20160628135904) do
     t.index ["user_id"], name: "index_favourites_on_user_id", using: :btree
   end
 
+  create_table "game_types", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "num_players"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
   create_table "games", force: :cascade do |t|
     t.integer  "num_players"
     t.string   "name"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+    t.integer  "tic_tac_toe_id"
+    t.integer  "connect_four_id"
+    t.integer  "stix_id"
+    t.integer  "rock_paper_scissor_id"
+    t.integer  "game_type_id"
   end
 
   create_table "locations", force: :cascade do |t|
@@ -79,8 +94,11 @@ ActiveRecord::Schema.define(version: 20160628135904) do
   end
 
   create_table "rock_paper_scissors", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.integer  "game_type_id"
+    t.integer  "num_players"
+    t.string   "name"
   end
 
   create_table "rubies", force: :cascade do |t|
@@ -92,13 +110,19 @@ ActiveRecord::Schema.define(version: 20160628135904) do
   end
 
   create_table "stixes", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.integer  "game_type_id"
+    t.integer  "num_players"
+    t.string   "name"
   end
 
   create_table "tic_tac_toes", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.integer  "game_type_id"
+    t.integer  "num_players"
+    t.string   "name"
   end
 
   create_table "users", force: :cascade do |t|
