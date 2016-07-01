@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160630030137) do
+ActiveRecord::Schema.define(version: 20160701182006) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -54,13 +54,11 @@ ActiveRecord::Schema.define(version: 20160630030137) do
   create_table "games", force: :cascade do |t|
     t.integer  "num_players"
     t.string   "name"
-    t.datetime "created_at",            null: false
-    t.datetime "updated_at",            null: false
-    t.integer  "tic_tac_toe_id"
-    t.integer  "connect_four_id"
-    t.integer  "stix_id"
-    t.integer  "rock_paper_scissor_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
     t.integer  "game_type_id"
+    t.integer  "user_id"
+    t.integer  "match_id"
   end
 
   create_table "locations", force: :cascade do |t|
@@ -74,10 +72,24 @@ ActiveRecord::Schema.define(version: 20160630030137) do
   end
 
   create_table "matches", force: :cascade do |t|
-    t.integer  "game_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["game_id"], name: "index_matches_on_game_id", using: :btree
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.integer  "game_type_id"
+    t.string   "unique_id"
+    t.decimal  "match_amount"
+  end
+
+  create_table "outcomes", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "match_id"
+    t.decimal  "amount_won"
+    t.decimal  "amount_taken"
+    t.decimal  "percentage_taken"
+    t.integer  "outcome_value"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.index ["match_id"], name: "index_outcomes_on_match_id", using: :btree
+    t.index ["user_id"], name: "index_outcomes_on_user_id", using: :btree
   end
 
   create_table "played_games", force: :cascade do |t|
@@ -127,11 +139,12 @@ ActiveRecord::Schema.define(version: 20160630030137) do
 
   create_table "users", force: :cascade do |t|
     t.string   "email"
-    t.datetime "created_at",            null: false
-    t.datetime "updated_at",            null: false
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
     t.string   "password"
     t.string   "password_confirmation"
     t.string   "password_digest"
+    t.decimal  "ruby_amount",           default: "0.0"
   end
 
   create_table "wagers", force: :cascade do |t|
@@ -142,6 +155,7 @@ ActiveRecord::Schema.define(version: 20160630030137) do
     t.datetime "updated_at",   null: false
     t.integer  "user_id"
     t.integer  "match_id"
+    t.integer  "game_id"
     t.index ["match_id"], name: "index_wagers_on_match_id", using: :btree
     t.index ["user_id"], name: "index_wagers_on_user_id", using: :btree
   end
@@ -149,6 +163,8 @@ ActiveRecord::Schema.define(version: 20160630030137) do
   add_foreign_key "articles", "locations"
   add_foreign_key "favourites", "articles"
   add_foreign_key "favourites", "users"
+  add_foreign_key "outcomes", "matches"
+  add_foreign_key "outcomes", "users"
   add_foreign_key "played_games", "matches"
   add_foreign_key "rubies", "users"
   add_foreign_key "wagers", "matches"

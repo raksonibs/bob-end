@@ -7,17 +7,19 @@ u1 = User.find_or_create_by({email: "oskar@gmail.com", password: 'test', passwor
 u2 = User.find_or_create_by({email: "kacper@gmail.com", password: 'test', password_confirmation: 'test'})
 u3 = User.find_or_create_by({email: "claire@gmail.com", password: 'test', password_confirmation: 'test'})
 
-rps1 = RockPaperScissor.find_or_create_by({num_players: 2, name: 'Rock Paper Scissors', game_type: gt1})
-g1 = Game.find_or_create_by({name: rps1.game_type.name, game_type_id: rps1.game_type_id, rock_paper_scissor_id: rps1.id})
-rps1.games << g1
-match1 = Match.find_or_create_by(game: g1)
-wager1 = Wager.find_or_create_by({user: u1, amount: 10, match: match1})
-wager2 = Wager.find_or_create_by({user: u2, amount: 10, match: match1})
-match1.wagers << wager1
-match1.wagers << wager2
-# outcome o is a loss for one player,
-# outcome 1 is a win for player
-played_game1 = PlayedGame.find_or_create_by(game: g1, user: u1, outcome: 0, match: match1)
-played_game2 = PlayedGame.find_or_create_by(game: g1, user: u2, outcome: 0, match: match1)
+g1 = Game.find_or_create_by({user: u1, game_type: gt1})
+g2 = Game.find_or_create_by({user: u2, game_type: gt1})
+g1.wagers << Wager.find_or_create_by({amount: 10.00, user: u1, game: g1})
+g2.wagers << Wager.find_or_create_by({amount: 10.00, user: u2, game: g2})
 
-g1 = Game.find_or_create_by({num_players: 2, name: 'Rock Paper Scissors'})
+match1 = Match.find_or_create_by({game_type: gt1, unique_id: SecureRandom.hex()})
+match1.games << g1
+match1.games << g2
+match1.update_attributes({match_amount: match1.total_amount})
+
+g1.update_attributes({match: match1})
+g2.update_attributes({match: match1})
+# kacper lost to oskar
+outcome1 = Outcome.find_or_create_by({match: match1, user: u1, outcome_value: 1, amount_won: 18.00, amount_taken: 2.00, percentage_taken: 0.1})
+outcome2 = Outcome.find_or_create_by({match: match1, user: u2, outcome_value: 0, amount_won: 0, amount_taken: 2.00, percentage_taken: 0.1})
+
