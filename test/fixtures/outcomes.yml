@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  match: one
+  amount_won: 9.99
+  amount_taken: 9.99
+  percentage_taken: 9.99
+  outcome_value: 1
+
+two:
+  user: two
+  match: two
+  amount_won: 9.99
+  amount_taken: 9.99
+  percentage_taken: 9.99
+  outcome_value: 1

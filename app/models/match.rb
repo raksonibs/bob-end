@@ -1,10 +1,9 @@
-class Match < ApplicationRecord
-  # belongs_to_and_has_many :user
-  belongs_to :game
-  has_many :wagers
-  has_many :played_games
+class Match < ApplicationRecord  
+  has_many :games
+  has_many :outcomes
+  belongs_to :game_type
 
   def total_amount
-    wagers.inject(&:+)
+    games.map(&:wagers).flatten.map(&:amount).inject(&:+)
   end
 end
