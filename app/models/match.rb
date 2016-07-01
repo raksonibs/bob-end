@@ -1,7 +1,8 @@
 class Match < ApplicationRecord  
-  has_many :games
+  has_many :games, validate: false
   has_many :outcomes
   belongs_to :game_type
+  # has_many :wagers, validate: false
 
   def total_amount
     games.map(&:wagers).flatten.map(&:amount).inject(&:+)

@@ -1,3 +1,4 @@
+puts "SEEDING"
 gt1 = GameType.find_or_create_by({name: 'Rock Paper Scissors', num_players: 2})
 gt2 = GameType.find_or_create_by({name: 'Connect Four', num_players: 2})
 gt3 = GameType.find_or_create_by({name: 'Stix', num_players: 2})
@@ -8,7 +9,11 @@ u2 = User.find_or_create_by({email: "kacper@gmail.com", password: 'test', passwo
 u3 = User.find_or_create_by({email: "claire@gmail.com", password: 'test', password_confirmation: 'test'})
 
 g1 = Game.find_or_create_by({user: u1, game_type: gt1})
+g1.save(validate: false)
 g2 = Game.find_or_create_by({user: u2, game_type: gt1})
+g2.save(validate: false)
+u1.games << g1
+u2.games << g2
 g1.wagers << Wager.find_or_create_by({amount: 10.00, user: u1, game: g1})
 g2.wagers << Wager.find_or_create_by({amount: 10.00, user: u2, game: g2})
 
