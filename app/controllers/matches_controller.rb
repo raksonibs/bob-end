@@ -15,6 +15,7 @@ class MatchesController < ApplicationController
 
   # POST /matches
   def create
+    self.check_rubies(params[:user_id])
     @match = Match.new(match_params)
 
     if @match.save

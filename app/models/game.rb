@@ -4,4 +4,5 @@ class Game < ApplicationRecord
   belongs_to :tic_tac_toe
   belongs_to :stix
   belongs_to :connect_four
+  belongs_to :user
 end
