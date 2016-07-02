@@ -10,5 +10,6 @@ class Game < ApplicationRecord
 
   scope :waiting, -> { where(status: 'waiting')}
   scope :spec_waiting, -> (game_type_id){where(status: 'waiting', game_type_id: game_type_id.to_i)}
+  scope :spec_waiting, -> (game_type_id){where(status: 'playing', game_type_id: game_type_id.to_i)}
   scope :completed, -> { where(status: 'completed')}
 end

@@ -10,28 +10,40 @@ class MatchesController < ApplicationController
 
   def search
     # some parameter comes into the search
-    possible_games = Game.spec_waiting(params[:game_type_id])
-    if possible_games.count > 1
-      possible_games = possible_games[0..1]
-      # if found games, need to create a match with these two games
-      @gt = GameType.find(params[:game_type_id])
-      matches = Game.where(id: possible_games.map(&:id)).map(&:match).uniq
+    # need to pass what game this is in in the socket connection 
+    # to see if there are any matches already with this game id in it
 
-      if matches.count > 1 
-        @match = Match.create({game_type: @gt, unique_id: SecureRandom.hex()})
-      else
-        @match = matches.first
-      end
+    match_with_game = Game.find_by_id(params[:game_id]).match
 
-      possible_games.each{|e| @match.games << e}
-      possible_games.each{|e| e.update_attributes({match: @match, status: 'playing'})}
-      @match.update_attributes({match_amount: @match.total_amount})
-      # updates all relationships, and flag games as playing, and then renders match
-      # socket sees match and then emits to all listeners, here is your match, now go to it
-      render json: @match
+    if match_with_game
+      render json: match_with_game
     else
-      render json: {status: 428}
-    end  
+      possible_games = Game.spec_waiting(params[:game_type_id])
+      # playing_games = Game.spec_playing(params[:game_type_id])
+
+      if possible_games.count > 1
+        possible_games = possible_games[0..1]
+        # if found games, need to create a match with these two games
+        @gt = GameType.find(params[:game_type_id])
+        matches = Game.where(id: possible_games.map(&:id)).map(&:match).uniq.compact
+
+        if matches.count == 1 
+          @match = matches.first
+        else
+          @match = Match.create({game_type: @gt, unique_id: SecureRandom.hex()})
+        end
+   
+        possible_games.each{|e| e.update_attributes({match: @match, status: 'playing'})}
+        possible_games.each{|e| @match.games << e}
+        
+        @match.update_attributes({match_amount: @match.total_amount})
+        # updates all relationships, and flag games as playing, and then renders match
+        # socket sees match and then emits to all listeners, here is your match, now go to it
+        render json: @match
+      else
+        render json: {status: 428}
+      end
+    end
   end
 
   # GET /matches/1
