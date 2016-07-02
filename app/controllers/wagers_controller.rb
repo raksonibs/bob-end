@@ -46,6 +46,6 @@ class WagersController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def wager_params
-      params.fetch(:wager, {})
+      ActiveModelSerializers::Deserialization.jsonapi_parse(params)
     end
 end

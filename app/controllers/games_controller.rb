@@ -1,8 +1,10 @@
 class GamesController < ApplicationController
   before_action :set_game, only: [:show, :update, :destroy]
-  before_action :all_games, only: [:index]
+
   # GET /games
   def index
+    @games = Game.all.includes(:wagers)
+
     render json: @games
   end
 
@@ -15,7 +17,19 @@ class GamesController < ApplicationController
   def create
     @game = Game.new(game_params)
 
-    if @game.save
+    if @game.save(validate: false)
+      # NTD: Post request with nested attributes, how?
+      # also the validate false for now, there should be a container fill instead.
+      if params[:data][:wagers]
+        params[:data][:wagers].each do |wager|
+          @wager = Wager.new(wager_params(wager))
+          @wager.game = @game
+          @wager.save
+          @game.wagers << @wager
+        end
+        @game.save
+      end
+      
       render json: @game, status: :created, location: @game
     else
       render json: @game.errors, status: :unprocessable_entity
@@ -39,49 +53,18 @@ class GamesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_game
-      @games = all_games().first[1]
-      @game = @games.find{|e| e[:id] == params[:id]}
-      @game = {data: @game}
+      @game = Game.find(params[:id])
     end
 
     # Only allow a trusted parameter "white list" through.
     def game_params
-      params.fetch(:game, {})
+      # params.fetch(:game, {})
+
+      ActiveModelSerializers::Deserialization.jsonapi_parse(params)
+
     end
 
-    def all_games 
-      @games = {data: [{
-                id: '1', 
-                type: 'games',
-                attributes: {
-                  name: 'Tic Tac Toe', 
-                  num_players: 2
-                }
-              },
-              {
-                id: '2', 
-                type: 'games',
-                attributes: {
-                  name: 'Connect Four', 
-                  num_players: 2
-                }
-              },
-              {
-                id: '3', 
-                type: 'games',
-                attributes: {
-                  name: 'Rock Paper Scissors', 
-                  num_players: 2
-                }
-              },
-              {
-                id: '4', 
-                type: 'games',
-                attributes: {
-                  name: 'Stix', 
-                  num_players: 2
-                }
-              }]
-            }
+    def wager_params(passed)
+      ActiveModelSerializers::Deserialization.jsonapi_parse(passed)
     end
 end

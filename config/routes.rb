@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :game_types, :path => '/game-types'
   # resources :articles
   # resources :locations
   # resources :favourites
@@ -9,7 +10,6 @@ Rails.application.routes.draw do
   end
   
   resources :matches
-  resources :played_games
   resources :games
   resources :wagers
 end
