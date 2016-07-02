@@ -1,5 +1,5 @@
 class GameSerializer < ActiveModel::Serializer
-  attributes :id
+  attributes :id, :status
 
   has_many :wagers, serializer: WagerSerializer
   belongs_to :user

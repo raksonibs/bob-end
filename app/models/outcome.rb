@@ -2,7 +2,7 @@ class Outcome < ApplicationRecord
   # 1 is win, 0 draw, -1 is loss
   belongs_to :user
   belongs_to :match
-  after_create :change_rubies
+  after_create :change_rubies, :complete_games
 
   def change_rubies
     if outcome_value == -1
@@ -11,6 +11,10 @@ class Outcome < ApplicationRecord
     elsif outcome_value == 1 
       user.update_attributes({ruby_amount: user.ruby_amount + amount_won})
     end
+  end
+
+  def complete_games
+    match.games.update_all({status: 'completed'})
   end
 
   def win?
