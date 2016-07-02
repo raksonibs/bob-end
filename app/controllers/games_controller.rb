@@ -18,6 +18,7 @@ class GamesController < ApplicationController
     @game = Game.new(game_params)
 
     if @game.save(validate: false)
+      # @game.update_attributes({game_type: GameType.find(params[:data][:attributes][:possible])})
       # NTD: Post request with nested attributes, how?
       # also the validate false for now, there should be a container fill instead.
       if params[:data][:wagers]
@@ -58,10 +59,7 @@ class GamesController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def game_params
-      # params.fetch(:game, {})
-
       ActiveModelSerializers::Deserialization.jsonapi_parse(params)
-
     end
 
     def wager_params(passed)

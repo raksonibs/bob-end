@@ -1,12 +1,7 @@
 class MatchSerializer < ActiveModel::Serializer
-  attributes :id, :game_type
+  attributes :id, :match_amount, :unique_id
 
-  has_many :wagers
-  has_many :played_games
-  belongs_to :game
-
-  def game_type
-    match.game
-  end
-
+  has_many :outcomes
+  belongs_to :game_type
+  has_many :games
 end

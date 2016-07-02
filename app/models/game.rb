@@ -1,5 +1,5 @@
 class Game < ApplicationRecord
-  # status can be waiting, or completed, or dropped
+  # status can be waiting, or completed, or dropped, or playing
   has_many :wagers
   belongs_to :game_type
   belongs_to :user
@@ -9,6 +9,6 @@ class Game < ApplicationRecord
   # attr_accessible :wagers_attributes
 
   scope :waiting, -> { where(status: 'waiting')}
-  scope :spec_waiting, -> (game_type_id){where(status: 'waiting', game_type_id: game_type_id)}
+  scope :spec_waiting, -> (game_type_id){where(status: 'waiting', game_type_id: game_type_id.to_i)}
   scope :completed, -> { where(status: 'completed')}
 end

@@ -9,7 +9,12 @@ Rails.application.routes.draw do
     end
   end
   
-  resources :matches
+  resources :matches do
+    collection do 
+      get 'search/:game_type_id', action: "search"
+    end
+  end
+
   resources :games
   resources :wagers
 end
