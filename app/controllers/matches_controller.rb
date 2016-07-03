@@ -67,7 +67,7 @@ class MatchesController < ApplicationController
   # PATCH/PUT /matches/1
   def update
     if @match.update(match_params)
-      @match.update_attributes(current_turn: params[:data][:attributes]["current-turn"])if params[:data][:attributes]["current-turn"]
+      @match.update_attributes(current_turn: params[:data][:attributes]["next-turn"]) if params[:data][:attributes]["current-turn"]
       render json: @match
     else
       render json: @match.errors, status: :unprocessable_entity
