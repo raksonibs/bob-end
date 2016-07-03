@@ -5,7 +5,7 @@ class MatchSerializer < ActiveModel::Serializer
   belongs_to :game_type
   has_many :games
 
-  def next_turn
-    object.games.map(&:user).reject{|e| e.id == object.current_turn }.last.id
-  end
+  # def next_turn
+  #   object.games.map(&:user).reject{|e| e.id == object.current_turn }.last.id
+  # end
 end

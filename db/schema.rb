@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160702225028) do
+ActiveRecord::Schema.define(version: 20160703145926) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -78,6 +78,7 @@ ActiveRecord::Schema.define(version: 20160702225028) do
     t.string   "unique_id"
     t.decimal  "match_amount"
     t.integer  "current_turn"
+    t.integer  "next_turn"
   end
 
   create_table "outcomes", force: :cascade do |t|
