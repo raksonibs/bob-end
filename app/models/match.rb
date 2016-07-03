@@ -4,6 +4,7 @@ class Match < ApplicationRecord
   belongs_to :game_type
   # has_many :wagers, validate: false
   after_create :set_match_amount
+  # has_one :current_turn, class_name: 'User', foreign_key: 'id'
 
   def set_match_amount
     update_attributes(match_amount: games.map(&:wagers).flatten.map(&:amount).inject(&:+))

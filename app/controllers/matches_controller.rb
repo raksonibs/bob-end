@@ -16,6 +16,7 @@ class MatchesController < ApplicationController
     match_with_game = Game.find_by_id(params[:game_id]).match
 
     if match_with_game
+      match_with_game.update_attributes(current_turn: possible_games.first.user.id) if match_with_game.current_turn.nil?
       render json: match_with_game
     else
       possible_games = Game.spec_waiting(params[:game_type_id])
@@ -30,7 +31,7 @@ class MatchesController < ApplicationController
         if matches.count == 1 
           @match = matches.first
         else
-          @match = Match.create({game_type: @gt, unique_id: SecureRandom.hex()})
+          @match = Match.create({current_turn: possible_games.first.user.id, game_type: @gt, unique_id: SecureRandom.hex()})
         end
    
         possible_games.each{|e| e.update_attributes({match: @match, status: 'playing'})}
@@ -66,6 +67,7 @@ class MatchesController < ApplicationController
   # PATCH/PUT /matches/1
   def update
     if @match.update(match_params)
+      @match.update_attributes(current_turn: params[:data][:attributes]["current-turn"])if params[:data][:attributes]["current-turn"]
       render json: @match
     else
       render json: @match.errors, status: :unprocessable_entity
