@@ -9,6 +9,13 @@ namespace :change do
     end
   end
 
+  desc 'Add slugs to GameTypes'
+  task :slugs => :environment do 
+    slugs = ["rps", "connect4", "stixx", "ttt"]
+
+    GameType.all.each_with_index{|e, index| e.update_attributes({slug: slugs[index]})}
+  end
+
   desc 'Update existing locations'
   task :locs => :environment do
     locs = ["North America", "North America", "Asia", "Europe", "North America", "Africa", "Africa", "Oceania"] 
