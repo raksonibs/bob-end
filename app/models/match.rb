@@ -31,7 +31,8 @@ class Match < ApplicationRecord
 
 
       end
-
+      
+      self.games.update_all({status: 'completed'})
       outcomes_created = true
     end
 
