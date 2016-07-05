@@ -13,6 +13,9 @@ Rails.application.routes.draw do
     collection do 
       get 'search/:game_type_id', action: "search"
     end
+    member do 
+      post 'winner', action: 'winner'
+    end
   end
 
   resources :games

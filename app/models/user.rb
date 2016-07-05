@@ -6,6 +6,8 @@ class User < ApplicationRecord
   has_many :wagers, through: :games
   has_many :outcomes
 
+  default_scope { order('created_at DESC') }
+
   def password=(password)
     self.password_digest = BCrypt::Password.create(password)
   end

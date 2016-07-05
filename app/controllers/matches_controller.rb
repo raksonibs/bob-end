@@ -8,6 +8,15 @@ class MatchesController < ApplicationController
     render json: @matches
   end
 
+  def winner
+    @match = Match.find_by_unique_id(params[:id])
+    if @match.create_outcomes(params)
+      render json: @match
+    else
+      render json: {status: 428}
+    end
+  end
+
   def search
     # some parameter comes into the search
     # need to pass what game this is in in the socket connection 
