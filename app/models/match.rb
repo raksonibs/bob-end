@@ -5,6 +5,7 @@ class Match < ApplicationRecord
   has_many :users, through: :games
   # has_many :wagers, validate: false
   after_create :set_match_amount
+  # has_many :games
   # after_update :update_current_turn
   # has_one :current_turn, class_name: 'User', foreign_key: 'id'
 
