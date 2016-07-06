@@ -1,6 +1,6 @@
 class Match < ApplicationRecord  
   has_many :games, validate: false
-  has_many :outcomes
+  has_many :outcomes, dependent: :destroy
   belongs_to :game_type
   has_many :users, through: :games
   # has_many :wagers, validate: false
