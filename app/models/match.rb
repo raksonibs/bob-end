@@ -14,6 +14,18 @@ class Match < ApplicationRecord
     update_attributes(match_amount: games.map(&:wagers).flatten.map(&:amount).inject(&:+))
   end
 
+  def make_sure_turns_set
+    users = self.users 
+    match.update_attributes(current_turn: users.first.id) if current_turn.nil?
+    match.update_attributes(next_turn: users.last.id) if next_turn.nil?
+  end
+
+  def record_move(user, choice)
+    mover = self.mover 
+    user_moves = mover.moves.where(user_id: user.id).first
+    user_moves.update_attributes({choices: user_moves.choices << choice})    
+  end
+
   def create_mover
     self.mover = Mover.find_by_match_id(self.id) || Mover.create(match: self, game_type: self.game_type)
     self.users.each do |user| 

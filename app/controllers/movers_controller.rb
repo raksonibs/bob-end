@@ -9,7 +9,7 @@ class MoversController < ApplicationController
   end
 
   # GET /movers/1
-  def show
+  def show   
     render json: @mover
   end
 

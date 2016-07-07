@@ -13,7 +13,8 @@ class ApplicationController < ActionController::API
     # possible_games = Game.where(game_type_id: game_type_id)
 
     if match_with_game
-      match_with_game.update_attributes(current_turn: match_with_game.users.first.id) if match_with_game.current_turn.nil?
+      # match_with_game.update_attributes(current_turn: match_with_game.users.first.id) if match_with_game.current_turn.nil?
+      match_with_game.make_sure_turns_set
       render json: game || match_with_game
     else
       # playing_games = Game.spec_playing(game_type_id)
@@ -33,6 +34,8 @@ class ApplicationController < ActionController::API
         possible_games.each{|e| @match.games << e}
         
         @match.update_attributes({match_amount: @match.total_amount})
+        @match.create_mover
+        @match.make_sure_turns_set
         # updates all relationships, and flag games as playing, and then renders match
         # socket sees match and then emits to all listeners, here is your match, now go to it
         render json: game || @match

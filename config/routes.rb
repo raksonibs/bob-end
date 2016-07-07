@@ -17,6 +17,7 @@ Rails.application.routes.draw do
     end
     member do 
       post 'winner', action: 'winner'
+      post 'record_move', action: 'record_move'
     end
   end
 

@@ -41,6 +41,19 @@ class MatchesController < ApplicationController
     end
   end
 
+  def record_move
+    user = User.find_by_id(params[:user])
+    match = Match.find_by_unique_id(params[:id])
+    choice = params[:choice]
+    if match
+      match.record_move(user, choice)
+      # render the mover
+      render json: match.mover
+    else
+      render json: {status: 428}
+    end
+  end
+
   # PATCH/PUT /matches/1
   def update
     if @match.update(match_params)  
