@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :moves
+  resources :movers
   resources :game_types, :path => '/game-types'
   # resources :articles
   # resources :locations

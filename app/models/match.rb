@@ -5,12 +5,20 @@ class Match < ApplicationRecord
   has_many :users, through: :games
   # has_many :wagers, validate: false
   after_create :set_match_amount
+  has_one :mover
   # has_many :games
   # after_update :update_current_turn
   # has_one :current_turn, class_name: 'User', foreign_key: 'id'
 
   def set_match_amount
     update_attributes(match_amount: games.map(&:wagers).flatten.map(&:amount).inject(&:+))
+  end
+
+  def create_mover
+    self.mover = Mover.find_by_match_id(self.id) || Mover.create(match: self, game_type: self.game_type)
+    self.users.each do |user| 
+      mover.moves << Move.create(mover: self.mover, user: user)
+    end
   end
 
   def create_outcomes(params)

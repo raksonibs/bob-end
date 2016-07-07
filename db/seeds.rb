@@ -22,9 +22,21 @@ match1.games << g1
 match1.games << g2
 match1.update_attributes({match_amount: match1.total_amount})
 
+
 g1.update_attributes({match: match1})
 g2.update_attributes({match: match1})
 # kacper lost to oskar
+
+match1.create_mover
+
+match1.mover.moves.each_with_index do |move, index|
+  if index.even?
+    move.update_attributes({choices: ["rock"], option: 'rock'})
+  else
+    move.update_attributes({choices: ["paper"], option: 'paper'})
+  end
+end
+
 outcome1 = Outcome.find_or_create_by({match: match1, user: u1, outcome_value: 1, amount_won: 18.00, amount_taken: 2.00, percentage_taken: 0.1})
 outcome2 = Outcome.find_or_create_by({match: match1, user: u2, outcome_value: 0, amount_won: 0, amount_taken: 2.00, percentage_taken: 0.1})
 
