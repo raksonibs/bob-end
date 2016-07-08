@@ -3,7 +3,7 @@ class MovesController < ApplicationController
 
   # GET /moves
   def index
-    @moves = Move.all
+    @moves = params[:mover_id].present? ? Move.where(mover_id: params[:mover_id]) : Move.all
 
     render json: @moves
   end

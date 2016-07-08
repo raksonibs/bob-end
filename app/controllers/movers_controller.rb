@@ -1,5 +1,5 @@
 class MoversController < ApplicationController
-  before_action :set_mover, only: [:show, :update, :destroy]
+  before_action :set_mover, only: [:show, :update, :destroy, :reset]
 
   # GET /movers
   def index
@@ -9,7 +9,13 @@ class MoversController < ApplicationController
   end
 
   # GET /movers/1
-  def show   
+  def show
+    render json: @mover
+  end
+
+  def reset
+    @mover.reset_choices
+
     render json: @mover
   end
 

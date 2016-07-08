@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
   resources :moves
-  resources :movers
+  resources :movers do 
+    member do 
+      patch 'reset', action: 'reset'
+    end
+  end
   resources :game_types, :path => '/game-types'
   # resources :articles
   # resources :locations
