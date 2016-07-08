@@ -45,10 +45,11 @@ class MatchesController < ApplicationController
     user = User.find_by_id(params[:user])
     match = Match.find_by_unique_id(params[:id])
     choice = params[:choice]
+    @mover = match.mover
     if match
       match.record_move(user, choice)
-      # render the mover
-      render json: match.mover
+      
+      render json: @mover
     else
       render json: {status: 428}
     end

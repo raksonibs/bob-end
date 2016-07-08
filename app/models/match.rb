@@ -9,6 +9,7 @@ class Match < ApplicationRecord
   # has_many :games
   # after_update :update_current_turn
   # has_one :current_turn, class_name: 'User', foreign_key: 'id'
+  after_update :make_sure_turns_set
 
   def set_match_amount
     update_attributes(match_amount: games.map(&:wagers).flatten.map(&:amount).inject(&:+))
@@ -16,8 +17,8 @@ class Match < ApplicationRecord
 
   def make_sure_turns_set
     users = self.users 
-    self.update_attributes(current_turn: users.first.id) if current_turn.nil?
-    self.update_attributes(next_turn: users.last.id) if next_turn.nil?
+    self.update_attributes(current_turn: users[0].id) if current_turn.nil? || current_turn == next_turn
+    self.update_attributes(next_turn: users[1].id) if next_turn.nil? || current_turn == next_turn
   end
 
   def record_move(user, choice)
@@ -28,8 +29,10 @@ class Match < ApplicationRecord
 
   def create_mover
     self.mover = Mover.find_by_match_id(self.id) || Mover.create(match: self, game_type: self.game_type)
-    self.users.each do |user| 
-      mover.moves << Move.create(mover: self.mover, user: user)
+    if self.mover.moves.blank?
+      self.users.each do |user| 
+        mover.moves << Move.create(mover: self.mover, user: user)
+      end
     end
   end
 
