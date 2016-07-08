@@ -16,8 +16,8 @@ class Match < ApplicationRecord
 
   def make_sure_turns_set
     users = self.users 
-    match.update_attributes(current_turn: users.first.id) if current_turn.nil?
-    match.update_attributes(next_turn: users.last.id) if next_turn.nil?
+    self.update_attributes(current_turn: users.first.id) if current_turn.nil?
+    self.update_attributes(next_turn: users.last.id) if next_turn.nil?
   end
 
   def record_move(user, choice)
