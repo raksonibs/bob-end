@@ -25,6 +25,8 @@ match1.update_attributes({match_amount: match1.total_amount})
 
 g1.update_attributes({match: match1})
 g2.update_attributes({match: match1})
+
+match1.make_sure_turns_set
 # kacper lost to oskar
 
 match1.create_mover
