@@ -17,10 +17,15 @@ class Match < ApplicationRecord
 
   def make_sure_turns_set
     users = self.users.blank? ? self.games.map(&:user) : self.users
-
+    
     unless users.blank?
       self.update_attributes(current_turn: users[0].id) if current_turn.nil? || current_turn == next_turn
       self.update_attributes(next_turn: users[1].id) if next_turn.nil? || current_turn == next_turn
+
+      if current_turn == next_turn
+        turn = current_turn == users[0].id ? users[1].id : users[0].id
+        self.update_attributes(next_turn: turn)
+      end
     end
   end
 

@@ -6,7 +6,7 @@ class ApplicationController < ActionController::API
   end
 
   def find_match(params, game = false)
-    game_type_id = params[:game_type_id] || game.game_type_id
+    game_type_id = params[:game_type_id] || game.try(:game_type_id)
     puts "SEARCHING FOR GAME"    
     match_with_game = Game.find_by_id(params[:game_id]).try(:match)
     possible_games = Game.spec_waiting(game_type_id)

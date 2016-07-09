@@ -46,6 +46,6 @@ class GameTypesController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def game_type_params
-      params.fetch(:game_type, {})
+      ActiveModelSerializers::Deserialization.jsonapi_parse(params)
     end
 end
