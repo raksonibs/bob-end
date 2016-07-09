@@ -45,7 +45,9 @@ class MatchesController < ApplicationController
     user = User.find_by_id(params[:user])
     match = Match.find_by_unique_id(params[:id])
     choice = params[:choice]
+    choice = choice.split(',') if choice =~ /,/
     @mover = match.mover
+
     if match
       match.record_move(user, choice)
       
