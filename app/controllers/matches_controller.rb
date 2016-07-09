@@ -50,7 +50,7 @@ class MatchesController < ApplicationController
 
     if match
       match.record_move(user, choice)
-      
+      formatted = @mover.formatted_moves
       render json: @mover
     else
       render json: {status: 428}
