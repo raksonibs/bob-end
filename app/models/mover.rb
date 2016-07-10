@@ -70,9 +70,11 @@ class Mover < ApplicationRecord
   end
 
   def check_moves
-    match = self.match 
+    match = self.match
+
     if self.moves.blank?
-      match.users.each do |user| 
+      users = Game.where(match_id: match.id).map(&:user)
+      users.each do |user| 
         self.moves << Move.create(mover: self, user: user)
       end
     end

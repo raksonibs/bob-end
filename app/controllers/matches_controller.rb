@@ -44,13 +44,24 @@ class MatchesController < ApplicationController
   def record_move
     user = User.find_by_id(params[:user])
     match = Match.find_by_unique_id(params[:id])
+    @mover = match.mover
+    @mover.check_moves
     choice = params[:choice]
     choice = choice.split(',') if choice =~ /,/
-    @mover = match.mover
 
     if match
       match.record_move(user, choice)
-      formatted = @mover.formatted_moves
+
+      render json: @mover
+    else
+      render json: {status: 428}
+    end
+  end
+
+  def moves
+    match = Match.find_by_unique_id(params[:id])
+    @mover = match.mover
+    if match
       render json: @mover
     else
       render json: {status: 428}

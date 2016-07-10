@@ -32,7 +32,7 @@ class Match < ApplicationRecord
   def record_move(user, choice)
     mover = self.mover 
     user_moves = mover.moves.where(user_id: user.id).first
-    user_moves.update_attributes({choices: user_moves.choices << choice})    
+    user_moves.update_attributes({choices: user_moves.choices << choice}) if user_moves
   end
 
   def create_mover

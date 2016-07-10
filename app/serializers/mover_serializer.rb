@@ -11,10 +11,10 @@ class MoverSerializer < ActiveModel::Serializer
   end
 
   def last_move
-    object.moves.order('updated_at DESC').first
+    object.moves.order('updated_at DESC').first.nil? ? [] : object.moves.order('updated_at DESC').first
   end
 
   def last_formatted_move
-    Mover.format_move(object.moves.order('updated_at DESC').first)
+     object.moves.order('updated_at DESC').first.nil? ? [] : Mover.format_move(object.moves.order('updated_at DESC').first)
   end
 end
