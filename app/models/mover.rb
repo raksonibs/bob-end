@@ -38,11 +38,11 @@ class Mover < ApplicationRecord
       choices = move.choices
       choices.each do |choice|
         if game_type_id == 2
-          formatted << [index.even? ? "user_1" : "user_2", index.even? ? "X" : "O", choice[0], choice[1] ]
+          formatted << [index.even? ? move.user_id : move.user_id, index.even? ? "X" : "O", choice[0], choice[1] ]
          elsif game_type_id == 3
-          formatted << [index.even? ? "user_1" : "user_2", "", choice[0], choice[1] ]
+          formatted << [index.even? ? move.user_id : move.user_id, "", choice[0], choice[1] ]
         else
-          formatted << [index.even? ? "user_1" : "user_2", "", choice[0], "" ]
+          formatted << [index.even? ? move.user_id : move.user_id, "", choice[0], "" ]
         end
       end
     end
@@ -56,12 +56,16 @@ class Mover < ApplicationRecord
     index = move.mover.moves.find_index(move)
     choice = move.choices.last
 
-    if game_type == 2
-      [index.even? ? "user_1" : "user_2", index.even? ? "X" : "O", choice[0], choice[1] ]
-    elsif game_type == 3
-      [index.even? ? "user_1" : "user_2", "", choice[0], choice[1] ]
+    unless choice.nil?
+      if game_type == 2
+        [index.even? ? move.user_id : move.user_id, index.even? ? "X" : "O", choice[0], choice[1] ]
+      elsif game_type == 3
+        [index.even? ? move.user_id : move.user_id, "", choice[0], choice[1] ]
+      else
+        [index.even? ? move.user_id : move.user_id, "", choice[0], "" ]
+      end
     else
-      [index.even? ? "user_1" : "user_2", "", choice[0], "" ]
+      []
     end
   end
 
