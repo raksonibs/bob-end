@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   # resources :locations
   # resources :favourites
   resources :users do
-    collection do 
+    collection do
       post 'token'
     end
   end

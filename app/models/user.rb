@@ -3,6 +3,7 @@ class User < ApplicationRecord
   has_many :favourites
   has_many :articles, through: :favourites
   has_many :games
+  has_many :matches
   has_many :wagers, through: :games
   has_many :outcomes
 
