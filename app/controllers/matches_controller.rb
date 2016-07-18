@@ -1,10 +1,8 @@
 class MatchesController < ApplicationController
   before_action :set_match, only: [:show, :update, :destroy]
-
+  before_action :set_matches, only: [:index]
   # GET /matches
   def index
-    @matches = Match.all
-
     render json: @matches
   end
 
@@ -94,5 +92,13 @@ class MatchesController < ApplicationController
     # Only allow a trusted parameter "white list" through.
     def match_params
       params.fetch(:match, {})
+    end
+
+    def set_matches
+      if current_user
+        @matches = Match.where(user_id: current_user.id)
+      else
+        @matches = Match.all
+      end
     end
 end
