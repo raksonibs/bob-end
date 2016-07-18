@@ -7,7 +7,7 @@ Rails.application.routes.draw do
       get 'moves', action: 'moves'
     end
   end
-  resources :game_types, :path => '/game-types'
+  resources :game_types, :path => '/game_types'
   # resources :articles
   # resources :locations
   # resources :favourites
