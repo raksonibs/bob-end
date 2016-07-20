@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :outcomes
   resources :moves do
   end
   resources :movers do 

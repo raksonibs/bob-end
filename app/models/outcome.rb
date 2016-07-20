@@ -3,6 +3,7 @@ class Outcome < ApplicationRecord
   belongs_to :user
   belongs_to :match
   after_create :change_rubies, :complete_games
+  # enum outcome_value: [:win, :loss]
 
   def change_rubies
     if outcome_value == -1

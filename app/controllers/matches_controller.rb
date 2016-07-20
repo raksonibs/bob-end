@@ -95,10 +95,10 @@ class MatchesController < ApplicationController
     end
 
     def set_matches
-      if current_user
-        @matches = Match.where(user_id: current_user.id)
-      else
+      # if current_user
+      #   @matches = Match.where(user_id: current_user.id)
+      # else
         @matches = Match.all
-      end
+      # end
     end
 end
