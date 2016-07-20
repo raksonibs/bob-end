@@ -1,8 +1,8 @@
 puts "SEEDING"
-gt1 = GameType.find_or_create_by({name: 'Rock Paper Scissors', num_players: 2})
-gt3 = GameType.find_or_create_by({name: 'Tic Tac Toe', num_players: 2})
-gt3 = GameType.find_or_create_by({name: 'Stix', num_players: 2})
-gt2 = GameType.find_or_create_by({name: 'Connect Four', num_players: 2})
+gt1 = GameType.find_or_create_by({name: 'Rock Paper Scissors', num_players: 2, icon: 'bomb'})
+gt3 = GameType.find_or_create_by({name: 'Tic Tac Toe', num_players: 2, icon: 'rocket'})
+gt3 = GameType.find_or_create_by({name: 'Stix', num_players: 2, icon: 'flag'})
+gt2 = GameType.find_or_create_by({name: 'Connect Four', num_players: 2, icon: 'table'})
 
 u1 = User.find_or_create_by({email: "oskar@gmail.com", password: 'test', password_confirmation: 'test'})
 u2 = User.find_or_create_by({email: "kacper@gmail.com", password: 'test', password_confirmation: 'test'})
