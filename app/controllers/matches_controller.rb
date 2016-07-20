@@ -3,6 +3,8 @@ class MatchesController < ApplicationController
   before_action :set_matches, only: [:index]
   # GET /matches
   def index
+    @matches = apply_filters(@matches, params[:filter])
+
     render json: @matches
   end
 
@@ -100,5 +102,16 @@ class MatchesController < ApplicationController
       # else
         @matches = Match.all
       # end
+    end
+
+    def apply_filters(matches, filter)
+      if filter.try!(:[], :userSearch)
+        user = User.find_by_email(filter[:userSearch])
+        if user          
+          user.matches
+        end
+      else
+        matches
+      end
     end
 end

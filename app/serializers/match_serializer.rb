@@ -1,5 +1,5 @@
 class MatchSerializer < ActiveModel::Serializer
-  attributes :id, :match_amount, :unique_id, :current_turn, :next_turn
+  attributes :id, :match_amount, :unique_id, :current_turn, :next_turn, :amount
 
   has_many :outcomes
   belongs_to :game_type
@@ -10,4 +10,8 @@ class MatchSerializer < ActiveModel::Serializer
   # def next_turn
   #   object.games.map(&:user).reject{|e| e.id == object.current_turn }.last.id
   # end
+
+  def amount
+    object.match_amount
+  end
 end
