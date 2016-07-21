@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  use_doorkeeper
   resources :outcomes
   resources :moves do
   end
@@ -14,6 +15,7 @@ Rails.application.routes.draw do
   # resources :favourites
   resources :users do
     collection do
+      get 'me'
       post 'token'
     end
   end
