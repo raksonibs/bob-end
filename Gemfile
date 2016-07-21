@@ -24,7 +24,6 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem "active_model_serializers", github: "rails-api/active_model_serializers", tag: "v0.10.0.rc5"
-gem 'pry'
 gem 'bcrypt'
 # gem 'jbuilder'
 gem 'redis'
@@ -32,3 +31,35 @@ gem 'responders'
 gem 'dotenv-rails'
 gem 'bcrypt-ruby', '3.1.2'
 gem 'doorkeeper', '~> 3.0.1'
+
+
+group :development do
+  gem 'better_errors'
+  gem 'letter_opener'
+  gem 'quiet_assets'
+end
+
+group :development, :test do
+  gem 'factory_girl_rails'
+  gem 'faker'
+  gem 'guard-livereload'
+  gem 'guard-rspec'
+  gem 'rb-fsevent' # For mac – if using Linux add rb-inotify
+  gem 'rspec-rails'
+  gem 'timecop'
+
+  # Debugging
+  gem 'pry'
+  gem 'pry-remote'
+  gem 'binding_of_caller' # allows cmd-line in browser
+end
+
+group :test do
+  gem 'capybara'
+  gem 'database_cleaner'
+  gem 'shoulda-matchers'
+
+  # Drivers
+  gem 'capybara-webkit'
+  gem 'selenium-webdriver'
+end
