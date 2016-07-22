@@ -1,3 +1,3 @@
 class GameTypeSerializer < ActiveModel::Serializer
-  attributes :id, :name, :num_players, :slug, :icon
+  attributes :id, :name, :num_players, :slug, :icon, :rating
 end
