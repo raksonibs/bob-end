@@ -13,6 +13,10 @@ class User < ApplicationRecord
     self.password_digest = BCrypt::Password.create(password)
   end
 
+  def output_email
+    email
+  end
+
   def is_password?(password)
     BCrypt::Password.new(self.password_digest) == password
   end

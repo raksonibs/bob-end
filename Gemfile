@@ -36,7 +36,6 @@ gem 'doorkeeper', '~> 3.0.1'
 group :development do
   gem 'better_errors'
   gem 'letter_opener'
-  gem 'quiet_assets'
 end
 
 group :development, :test do
