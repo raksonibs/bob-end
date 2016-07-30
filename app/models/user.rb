@@ -17,6 +17,10 @@ class User < ApplicationRecord
     email
   end
 
+  def readable_amount
+    ruby_amount.to_f
+  end
+
   def is_password?(password)
     BCrypt::Password.new(self.password_digest) == password
   end

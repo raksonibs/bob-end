@@ -42,5 +42,7 @@ end
 outcome1 = Outcome.find_or_create_by({match: match1, user: u1, outcome_value: 1, amount_won: 18.00, amount_taken: 2.00, percentage_taken: 0.1})
 outcome2 = Outcome.find_or_create_by({match: match1, user: u2, outcome_value: 0, amount_won: 0, amount_taken: 2.00, percentage_taken: 0.1})
 
- slugs = ["rps", "connect4", "stixx", "ttt"]
-    GameType.all.each_with_index{|e, index| e.update_attributes({slug: slugs[index]})}
+slugs = ["rps", "connect4", "stixx", "ttt"]
+GameType.all.each_with_index{|e, index| e.update_attributes({slug: slugs[index]})}
+
+

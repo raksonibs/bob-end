@@ -9,8 +9,8 @@ class Outcome < ApplicationRecord
     if outcome_value == -1
       # if loss, already lost at the wager time.
       # user.update_attributes({ruby_amount: user.ruby_amount - outcome.match.})
-    elsif outcome_value == 1 
-      user.update_attributes({ruby_amount: user.ruby_amount + amount_won})
+    elsif outcome_value == 1
+      user.update_attributes({ruby_amount: (user.ruby_amount.to_f + amount_won.to_f)})
     end
   end
 
